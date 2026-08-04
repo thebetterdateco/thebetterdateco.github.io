@@ -27,14 +27,14 @@ export function MobileNav() {
   }, [isOpen]);
 
   return (
-    <div className="md:hidden">
+    <div className="dt:hidden">
       <button
         ref={toggleRef}
         type="button"
         aria-expanded={isOpen}
         aria-controls="mobile-menu"
         onClick={() => setIsOpen((open) => !open)}
-        className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-sm2 text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-[5px] text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
       >
         {isOpen ? <X aria-hidden="true" className="h-6 w-6" /> : <Menu aria-hidden="true" className="h-6 w-6" />}
         <span className="sr-only">{isOpen ? "Close menu" : "Open menu"}</span>
@@ -44,7 +44,7 @@ export function MobileNav() {
         id="mobile-menu"
         aria-label="Mobile"
         hidden={!isOpen}
-        className="absolute inset-x-0 top-full border-b border-line bg-paper px-4 pb-6 pt-2 shadow-soft"
+        className="absolute inset-x-0 top-full border-b border-divider bg-paper px-5 pb-6 pt-2 shadow-soft"
       >
         <ul className="flex flex-col gap-1">
           {navLinks.map((link, index) => (
@@ -53,7 +53,7 @@ export function MobileNav() {
                 ref={index === 0 ? firstLinkRef : undefined}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                className="flex min-h-[44px] items-center text-base font-medium text-ink-soft transition-colors hover:text-ink"
+                className="flex min-h-[44px] items-center text-body font-medium text-ink-soft transition-colors hover:text-ink"
               >
                 {link.label}
               </a>

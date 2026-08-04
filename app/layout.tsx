@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 
-const fraunces = Fraunces({
+const cormorantGaramond = Cormorant_Garamond({
   subsets: ["latin"],
-  variable: "--font-fraunces",
+  weight: ["500", "600", "700"],
+  variable: "--font-display",
   display: "swap",
 });
 
@@ -47,11 +48,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
+    <html lang="en" className={`${cormorantGaramond.variable} ${inter.variable}`}>
       <body className="flex min-h-screen flex-col overflow-x-hidden">
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-sm2 focus:bg-ink focus:px-4 focus:py-2 focus:text-paper"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-ink focus:px-4 focus:py-2 focus:text-paper"
         >
           Skip to content
         </a>

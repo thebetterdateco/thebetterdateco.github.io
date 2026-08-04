@@ -1,23 +1,25 @@
+import type { ComponentType } from "react";
 import type { LucideIcon } from "lucide-react";
 import {
+  Calendar,
   CalendarClock,
-  Compass,
   FileText,
   Heart,
+  Instagram,
   Layers,
-  Leaf,
   Map,
   MapPin,
   Mail,
   MessageCircle,
+  Package,
   PackageCheck,
-  PackageOpen,
   PenLine,
-  Sparkles,
   Ticket,
 } from "lucide-react";
+import { SquiggleIcon, VennIcon } from "@/components/icons";
 
 export type MoodKey = "playful" | "romantic" | "meaningful";
+export type Icon = ComponentType<{ className?: string; strokeWidth?: number | string }>;
 
 export interface NavLink {
   label: string;
@@ -27,35 +29,35 @@ export interface NavLink {
 export const navLinks: NavLink[] = [
   { label: "Browse dates", href: "#mood-selection" },
   { label: "How it works", href: "#how-it-works" },
-  { label: "FAQ", href: "#faq" },
+  // TODO: point at a real FAQ page once it's built (see project memory).
+  { label: "FAQ", href: "/faq" },
 ];
 
 export interface HowItWorksStep {
   number: string;
   title: string;
   description: string;
-  icon: LucideIcon;
+  icon: Icon;
 }
 
 export const howItWorksSteps: HowItWorksStep[] = [
   {
-    number: "01",
+    number: "1",
     title: "Choose your experience",
     description: "Pick the mood that suits you and select one of our thoughtfully designed dates.",
-    icon: Compass,
+    icon: Calendar,
   },
   {
-    number: "02",
+    number: "2",
     title: "Receive your date package",
-    description:
-      "We send everything you need to your home, including preparation instructions, your itinerary and sealed moments to open during the date.",
-    icon: PackageOpen,
+    description: "We send everything you need to your home, including instructions and sealed moments to open.",
+    icon: Package,
   },
   {
-    number: "03",
+    number: "3",
     title: "Follow the experience",
     description: "Open each envelope when instructed and let the evening unfold. Less planning, more connection.",
-    icon: Sparkles,
+    icon: Heart,
   },
 ];
 
@@ -66,7 +68,7 @@ export interface Mood {
   description: string;
   ctaLabel: string;
   href: string;
-  icon: LucideIcon;
+  icon: Icon;
   analyticsId: string;
 }
 
@@ -75,11 +77,10 @@ export const moods: Mood[] = [
     key: "playful",
     title: "Playful",
     tagline: "Laugh, compete and try something different.",
-    description:
-      "For couples who want a relaxed, energetic evening with playful challenges and unexpected moments.",
+    description: "For couples who want a relaxed, energetic evening with playful challenges and unexpected moments.",
     ctaLabel: "Explore playful dates",
     href: "/dates/playful",
-    icon: Sparkles,
+    icon: SquiggleIcon,
     analyticsId: "mood_playful",
   },
   {
@@ -96,15 +97,17 @@ export const moods: Mood[] = [
   {
     key: "meaningful",
     title: "Meaningful",
-    tagline: "Slow down and reconnect.",
+    tagline: "Slow down and reconnect with what matters.",
     description:
       "For couples who want uninterrupted time, better conversation and a more intentional evening together.",
     ctaLabel: "Explore meaningful dates",
     href: "/dates/meaningful",
-    icon: Leaf,
+    icon: VennIcon,
     analyticsId: "mood_meaningful",
   },
 ];
+
+export type ExperienceImageVariant = "landscape" | "candlelight" | "interior";
 
 export interface Experience {
   title: string;
@@ -118,6 +121,7 @@ export interface Experience {
   ctaLabel: string;
   href: string;
   analyticsId: string;
+  imageVariant: ExperienceImageVariant;
 }
 
 export const experiences: Experience[] = [
@@ -127,13 +131,14 @@ export const experiences: Experience[] = [
     moodLabel: "Playful",
     description:
       "A light-hearted Edinburgh date filled with friendly competition, small surprises and plenty to laugh about.",
-    duration: "Approximately 3 hours",
+    duration: "3 hours",
     location: "Edinburgh",
     price: "£30",
     additionalSpend: "£40–£60 per couple",
     ctaLabel: "View experience",
     href: "/experiences/playful-pursuits",
     analyticsId: "featured_playful_pursuits",
+    imageVariant: "landscape",
   },
   {
     title: "The Thoughtful Surprise",
@@ -141,13 +146,14 @@ export const experiences: Experience[] = [
     moodLabel: "Romantic",
     description:
       "A carefully paced evening designed to make an ordinary night feel considered, personal and memorable.",
-    duration: "Approximately 3 hours",
+    duration: "3 hours",
     location: "Edinburgh",
     price: "£30",
     additionalSpend: "£50–£70 per couple",
     ctaLabel: "View experience",
     href: "/experiences/the-thoughtful-surprise",
     analyticsId: "featured_thoughtful_surprise",
+    imageVariant: "candlelight",
   },
   {
     title: "Time for Us",
@@ -155,13 +161,14 @@ export const experiences: Experience[] = [
     moodLabel: "Meaningful",
     description:
       "A calmer, connection-focused experience with guided moments, better conversation and time away from everyday distractions.",
-    duration: "Approximately 3 hours",
+    duration: "3 hours",
     location: "Edinburgh",
     price: "£30",
     additionalSpend: "£35–£55 per couple",
     ctaLabel: "View experience",
     href: "/experiences/time-for-us",
     analyticsId: "featured_time_for_us",
+    imageVariant: "interior",
   },
 ];
 
@@ -202,6 +209,14 @@ export const packageItems: PackageItem[] = [
     description: "A closing moment to reflect on the evening together, once it's done.",
     icon: PenLine,
   },
+];
+
+export const packageChecklist: string[] = [
+  "Preparation card and itinerary",
+  "Venue and booking guidance",
+  "Three sealed moments to open during your date",
+  "Conversation prompts and activities",
+  "Post-date reflection card",
 ];
 
 export interface PricingRow {
@@ -289,27 +304,20 @@ export const withoutPoints: string[] = [
 
 export const withPoints: string[] = ["Choose a mood", "Open the package", "Follow the evening"];
 
-export interface FooterLinkGroup {
-  title: string;
-  links: NavLink[];
+export const policyLinks: NavLink[] = [
+  { label: "Delivery & Returns", href: "/delivery-and-refunds" },
+  { label: "Terms & Conditions", href: "/terms" },
+  { label: "Privacy Policy", href: "/privacy" },
+];
+
+export interface SocialLink {
+  label: string;
+  href: string;
+  icon: Icon;
 }
 
-export const footerLinkGroups: FooterLinkGroup[] = [
-  {
-    title: "Explore",
-    links: [
-      { label: "Browse dates", href: "#mood-selection" },
-      { label: "How it works", href: "#how-it-works" },
-      { label: "FAQ", href: "#faq" },
-      { label: "Waitlist", href: "/waitlist" },
-    ],
-  },
-  {
-    title: "Policies",
-    links: [
-      { label: "Delivery and refunds", href: "/delivery-and-refunds" },
-      { label: "Privacy", href: "/privacy" },
-      { label: "Terms", href: "/terms" },
-    ],
-  },
+// TODO: replace with real social/contact links before launch.
+export const socialLinks: SocialLink[] = [
+  { label: "Instagram", href: "https://instagram.com", icon: Instagram },
+  { label: "Email", href: "mailto:hello@thebetterdate.co", icon: Mail },
 ];

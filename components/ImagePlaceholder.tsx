@@ -1,35 +1,32 @@
-import { Image as ImageIcon } from "lucide-react";
-import type { MoodKey } from "@/lib/content";
-
-type PlaceholderTone = MoodKey | "neutral";
+import { Armchair, Landmark, Wine } from "lucide-react";
+import type { ExperienceImageVariant } from "@/lib/content";
 
 interface ImagePlaceholderProps {
   label: string;
-  tone?: PlaceholderTone;
-  aspect?: string;
+  variant: ExperienceImageVariant;
   className?: string;
 }
 
 // Placeholder for future brand photography. Swap the contents of this
 // component for a real <Image> once photography is available — the
-// aspect-ratio wrapper and rounded/border treatment can stay as-is.
-const toneStyles: Record<PlaceholderTone, string> = {
-  neutral: "from-paper-dim to-paper border-line",
-  playful: "from-mood-playful/15 to-paper-dim border-mood-playful/30",
-  romantic: "from-mood-romantic/15 to-paper-dim border-mood-romantic/30",
-  meaningful: "from-mood-meaningful/15 to-paper-dim border-mood-meaningful/30",
+// aspect-ratio wrapper and rounded treatment can stay as-is.
+const variantStyles: Record<ExperienceImageVariant, { gradient: string; icon: typeof Landmark }> = {
+  landscape: { gradient: "from-[#B7C4D6] via-[#D9CBAE] to-[#E9A874]", icon: Landmark },
+  candlelight: { gradient: "from-[#3A2A28] via-[#6B3E2E] to-[#C77A45]", icon: Wine },
+  interior: { gradient: "from-[#DCE0C8] via-[#C9C6A6] to-[#8E8B6B]", icon: Armchair },
 };
 
-export function ImagePlaceholder({ label, tone = "neutral", aspect = "aspect-[4/3]", className = "" }: ImagePlaceholderProps) {
+export function ImagePlaceholder({ label, variant, className = "" }: ImagePlaceholderProps) {
+  const { gradient, icon: Icon } = variantStyles[variant];
+
   return (
     <div
       role="img"
       aria-label={`${label} — photography placeholder`}
-      className={`relative ${aspect} w-full overflow-hidden rounded-md2 border bg-gradient-to-br ${toneStyles[tone]} ${className}`}
+      className={`relative aspect-[4/3] w-full shrink-0 bg-gradient-to-br ${gradient} ${className}`}
     >
-      <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 p-4 text-center">
-        <ImageIcon aria-hidden="true" className="h-6 w-6 text-ink-soft/50" strokeWidth={1.5} />
-        <span className="font-display text-xs uppercase tracking-[0.15em] text-ink-soft/70">{label}</span>
+      <div className="absolute inset-0 flex items-center justify-center bg-black/10">
+        <Icon aria-hidden="true" className="h-8 w-8 text-white/80" strokeWidth={1.25} />
       </div>
     </div>
   );
