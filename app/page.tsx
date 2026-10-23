@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { asset } from "@/lib/asset";
 import { Check } from "lucide-react";
 import { Button } from "@/components/Button";
 import { SectionHeading } from "@/components/SectionHeading";
@@ -32,7 +33,7 @@ export default function Home() {
           </div>
           <div className="relative mx-auto aspect-[4/3] w-full max-w-md overflow-hidden rounded-[8px] dt:max-w-none dt:min-h-[470px]">
             <Image
-              src="/images/hero-package.png"
+              src={asset("/images/hero-package.png")}
               alt="The Better Date Co package: a kraft envelope printed with the logo, a note card reading 'Let's do something better tonight', and three sealed date-stage envelopes, styled next to a eucalyptus plant"
               fill
               priority
@@ -95,7 +96,7 @@ export default function Home() {
         <div className="mx-auto grid max-w-content gap-10 px-5 py-[72px] sm:px-8 dt:grid-cols-[1.05fr_0.95fr] dt:items-center dt:gap-16 dt:px-12 dt:py-[104px]">
           <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[8px]">
             <Image
-              src="/images/package-flat-lay.png"
+              src={asset("/images/package-flat-lay.png")}
               alt="Overhead photo of the package contents: an instructions booklet, a 'how it works' card and three sealed date-stage envelopes on a tabletop, with a small plant nearby"
               fill
               sizes="(min-width: 820px) 50vw, 90vw"
