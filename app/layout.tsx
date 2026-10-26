@@ -17,8 +17,7 @@ const inter = Inter({
   display: "swap",
 });
 
-// TODO: replace with the production domain before launch.
-const siteUrl = "https://www.thebetterdate.co";
+const siteUrl = "https://trybetterdate.com";
 
 const title = "The Better Date Co | Curated Date Experiences for Couples";
 const description =
